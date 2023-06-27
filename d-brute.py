@@ -143,18 +143,17 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=thread_num) as executor:
         future.result()
 
 # Print the found URLs
-if success_urls:
-    print(f"\n{CYAN}[{RED}*{CYAN}]{WHITE} Found Directories:")
-    for url in success_urls:
-        print(f"{GREEN}{url}{WHITE}")
+print(f"\n{CYAN}[{RED}*{CYAN}]{WHITE} Found URLs:")
+for url in success_urls:
+    print(url)
 
-    # Output to file if enabled
-    if output_to_file:
-        with open(output_file_path, 'w') as f:
-            f.write("\n".join(success_urls))
-        print(f"\n{CYAN}[{RED}*{CYAN}]{WHITE} Results saved to: {output_file_path}")
-else:
-    print(f"\n{CYAN}[{RED}!{CYAN}]{WHITE} No directories found.")
+# Output results to file if enabled
+if output_to_file:
+    with open(output_file_path, 'w') as output_file:
+        for url in success_urls:
+            output_file.write(url + "\n")
+
+    print(f"\n{CYAN}[{RED}*{CYAN}]{WHITE} Results have been saved to {output_file_path}")
 
 # Calculate and print the elapsed time
 end_time = time.time()
